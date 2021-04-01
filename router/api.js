@@ -39,7 +39,7 @@ router.post('/login', (req, res) => {
     // res.end('ok')
     console.log('获取参数', req.body);
     const { username, password } = req.body;
-    const sqlStr = `select * from users where username="${username} and password="${password}"`
+    const sqlStr = `select * from users where username="${username}" and password="${password}"`
     conn.query(sqlStr, (err, result) => {
         if (err) {
             res.json({ code: 500, msg: "服务器错误" })
@@ -50,17 +50,18 @@ router.post('/login', (req, res) => {
             const token = 'Bearer' + jwt.sign(
                 { name: username },
                 'gz61',
-                { expiresIn: 2 * 60 * 60 }
+                 { expiresIn: 24 * 60 * 60 }
             )
             res.json({
                 "status": 0,
                 "code": 200,
                 "message": "登录成功！",
-                "token": token
+                token
             })
+            console.log(token);
         } else {
             res.json({ code: 201, msg: "登陆失败，用户名密码不对" })
-        }
+        } 
     })
 })
 module.exports = router
