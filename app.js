@@ -14,10 +14,12 @@ server.use((req,res)=>{
 *///,  /^\/uploads\/.*/
 
 // 路由接口
-const myRouter = require('./router/my_router.js')
 const apiRouter = require('./router/api.js')
-server.use('/my', myRouter)
+const myRouter = require('./router/my_router.js')
+const usrRouter = require('./router/user.js')
 server.use('/api', apiRouter)
+server.use('/my/article', myRouter)
+server.use('/my',usrRouter)
 
 server.use(jwt({
   secret: 'gz61', // 生成token时的钥匙

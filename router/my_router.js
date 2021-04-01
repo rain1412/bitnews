@@ -4,7 +4,7 @@ const conn = require('../util/sql.js')
 router.use(express.urlencoded())
 
 // 文章分类列表
-router.get('/article/cates', (req, res) => {
+router.get('/cates', (req, res) => {
     // res.end('ok')
     conn.query('select * from categories', (err, result) => {
         if (err) {
@@ -16,7 +16,7 @@ router.get('/article/cates', (req, res) => {
 })
 
 // 新增文章分类
-router.post('/article/addcates', (req, res) => {
+router.post('/addcates', (req, res) => {
     console.log('用户传递的参数', req.body)
     const { name, slug } = req.body
     const sqlStr = `insert into categories (name,slug) values("${name}", "${slug}")`
@@ -34,7 +34,7 @@ router.post('/article/addcates', (req, res) => {
 })
 
 // 根据 Id 删除文章分类
-router.get('/article/deletecate', (req, res) => {
+router.get('/deletecate', (req, res) => {
     // res.end('ok')
     const { id } = req.query
     conn.query(`delete from categories where id=${id};`, (err, results) => {
@@ -45,7 +45,7 @@ router.get('/article/deletecate', (req, res) => {
 })
 
 // 根据 Id 获取文章分类数据
-router.get('/article/getCatesById', (req, res) => {
+router.get('/getCatesById', (req, res) => {
     const { id } = req.query
     // console.log('OK', id)
     conn.query(`SELECT * FROM  categories WHERE id=${id};`, (err, results) => {
@@ -60,7 +60,7 @@ router.get('/article/getCatesById', (req, res) => {
 })
 
 // 根据 Id 更新文章分类数据
-router.post('/article/updatecate', (req, res) => {
+router.post('/updatecate', (req, res) => {
     // res.end('ok')
     const { id, name, slug } = req.body
     const sqlStr = `update categories set name="${name}",slug="${slug}" where id=${id}`
