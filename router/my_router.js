@@ -62,18 +62,17 @@ router.get('/article/getCatesById', (req, res) => {
 // 根据 Id 更新文章分类数据
 router.post('/article/updatecate', (req, res) => {
     // res.end('ok')
-    const {id, name, slug} = req.body
-
-  const sqlStr=`update categories set name="${name}",slug="${slug}" where id=${id}`
-  // 3. 执行sql操作数据库
-  conn.query(sqlStr, (err, result)=>{
-    // console.log(err)
-    // console.log(result)
-    if(err) {
-      res.json({code: 500, msg: '修改错误'})
-      return
-    }
-    res.json({"status": 0, "message": "更新分类信息成功！"})
-  })
+    const { id, name, slug } = req.body
+    const sqlStr = `update categories set name="${name}",slug="${slug}" where id=${id}`
+    // 3. 执行sql操作数据库
+    conn.query(sqlStr, (err, result) => {
+        // console.log(err)
+        // console.log(result)
+        if (err) {
+            res.json({ code: 500, msg: '修改错误' })
+            return
+        }
+        res.json({ "status": 0, "message": "更新分类信息成功！" })
+    })
 })
 module.exports = router
